@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Didácticos para Docentes - Aprendo Literatura</title>
+    <!-- ESTO ES LO QUE CARGA TODOS LOS ESTILOS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+
+    <style>
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-top: 0 !important;
+  }
+  main.container {
+    margin-top: 1.5rem !important;
+    padding-top: 0 !important;
+  }
+</style>
+
+<style>
+    .hamburger-btn {
+  color: #1e293b !important; /* Color oscuro para que se vea */
+  font-size: 26px !important; /* Tamaño visible */
+  line-height: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 5px 10px !important;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- ==================== HEADER Y NAVEGACIÓN FIJA ==================== -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-2xs no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3 text-left group">
+                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-xl group-hover:scale-105 transition-transform" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex';">
+                <div id="fallback-logo" style="display:none;" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 items-center justify-center text-white shadow-sm">
+                    <i data-lucide="book-open-check" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="font-heading font-bold text-slate-800 text-lg tracking-tight block leading-none">Aprendo Literatura</span>
+                    <span class="text-[11px] font-semibold text-sky-600 uppercase tracking-wider">Plataforma educativa</span>
+                </div>
+            </a>
+
+            <!-- Menú Desktop -->
+            <nav class="hidden md:flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
+                <a href="index.html" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors">INICIO</a>
+                <a href="index.html#seccion-contenidos" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors">CONTENIDOS</a>
+                <a href="recursos.html" class="px-4 py-2.5 rounded-xl bg-sky-50 text-sky-700 hover:bg-sky-100 transition-colors">RECURSOS</a>
+                <a href="index.html#vista-ayuda" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors">AYUDA</a>
+            </nav>
+
+            <!-- Botón Menú Móvil -->
+            <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 py-3 space-y-1.5 uppercase text-xs font-bold">
+            <a href="index.html" class="block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-slate-50">INICIO</a>
+            <a href="index.html#seccion-contenidos" class="block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-slate-50">CONTENIDOS</a>
+            <a href="recursos.html" class="block px-3 py-2.5 rounded-xl text-sky-700 bg-sky-50">RECURSOS</a>
+            <a href="index.html#vista-ayuda" class="block px-3 py-2.5 rounded-xl text-slate-700 hover:bg-slate-50">AYUDA</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10">
+        <!-- ==================== SECCIÓN: RECURSOS DIDÁCTICOS PARA DOCENTES ==================== -->
+        <section class="space-y-8">
+            <!-- Encabezado Centrado -->
+            <div class="text-center max-w-2xl mx-auto space-y-2.5">
+                <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    Recursos Digitales para el Aula
+                </h2>
+                <p class="text-slate-500 text-sm sm:text-base leading-relaxed">
+                   Una selección de plataformas gratuitas e interactivas para potenciar tus clases de Lengua y Literatura con actividades dinámicas.
+                </p>
+            </div>
+
+            <!-- Cuadrícula de 6 Plataformas -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 1. Genially -->
+                <article class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-2xl shrink-0">
+                                ✨
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-xl leading-tight">Genially</h3>
+                                <span class="text-xs font-bold text-blue-600 block mt-0.5">Presentaciones e Interactivas</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            Ideal para crear infografías interactivas, gamificación, mapas conceptuales y presentaciones animadas sobre géneros literarios.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="https://genially.com/es/" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-2.5 px-5 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-colors">
+                            Acceder a Genially <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 2. Canva -->
+                <article class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-2xl shrink-0">
+                                🎨
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-xl leading-tight">Canva</h3>
+                                <span class="text-xs font-bold text-teal-600 block mt-0.5">Diseños</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            Diseñá afiches, guías de lectura, esquemas sintácticos y flashcards imprimibles o digitales para tus estudiantes.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="https://www.canva.com/es_ar/" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-2.5 px-5 rounded-full border border-teal-500 text-teal-600 hover:bg-teal-600 hover:text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-colors">
+                            Acceder a Canva <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 3. Kahoot! -->
+                <article class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-2xl shrink-0">
+                                🎮
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-xl leading-tight">Kahoot!</h3>
+                                <span class="text-xs font-bold text-emerald-600 block mt-0.5">Cuestionarios en Vivo</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            Plataformas para repasar contenidos de ortografía, clases de palabras y comprensión lectora en formato de trivia interactiva.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="https://kahoot.com/es/" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-2.5 px-5 rounded-full border border-emerald-500 text-emerald-600 hover:bg-emerald-600 hover:text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-colors">
+                            Acceder a Kahoot <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 4. Padlet -->
+                <article class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-pink-50 border border-pink-100 flex items-center justify-center text-2xl shrink-0">
+                                📌
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-xl leading-tight">Padlet</h3>
+                                <span class="text-xs font-bold text-amber-500 block mt-0.5">Muro Colaborativo</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            Muro digital donde los alumnos pueden publicar sus escritos, análisis literarios, audios o producciones creativas en grupo.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="https://es.padlet.com/" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-2.5 px-5 rounded-full border border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-colors">
+                            Acceder a Padlet <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 5. Wordwall -->
+                <article class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center text-2xl shrink-0">
+                                🎡
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-xl leading-tight">Wordwall</h3>
+                                <span class="text-xs font-bold text-blue-600 block mt-0.5">Juegos Interactivos</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            Crea ruletas de palabras, sopas de letras, crucigramas y juegos de uniones sobre gramática y ortografía.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="https://wordwall.net/es" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-2.5 px-5 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-colors">
+                            Acceder a Wordwall <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 6. Liveworksheets -->
+                <article class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col justify-between">
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-2xl shrink-0">
+                                📄
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-xl leading-tight">Liveworksheets</h3>
+                                <span class="text-xs font-bold text-emerald-600 block mt-0.5">Fichas e Impresimibles</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">
+                            Accedé y compartí fichas digitales de lectura y gramática con corrección automática para tus estudiantes.
+                        </p>
+                    </div>
+                    <div class="pt-6">
+                        <a href="https://www.liveworksheets.com/es" target="_blank" rel="noopener noreferrer"
+                           class="w-full py-2.5 px-5 rounded-full border border-emerald-500 text-emerald-600 hover:bg-emerald-600 hover:text-white font-bold text-sm flex items-center justify-center gap-1.5 transition-colors">
+                            Acceder a Liveworksheets <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+        <section class="seccion-destacada-inferior">
+  <div class="card-destacada">
+    <div class="card-destacada-info">
+      <span class="badge-destacado">Herramienta Docente</span>
+      <h2> Planilla de Calificaciones</h2>
+      <p>Gestiona los promedios, bimestres y estados de tus alumnos en tiempo real de forma fácil e intuitiva.</p>
+    </div>
+    
+    <div class="card-destacada-botones">
+      <a href="./Calificaciones.html" target="_blank" class="btn-destacado btn-online">
+        🌐 Usar en línea ↗
+      </a>
+    </div>
+  </div>
+</section>
+    </main>
+
+       
+      <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-center text-center gap-3 text-xs text-slate-500">
+        <p class="font-semibold text-slate-700">© 2026 AprendoLiteratura. Desarrollado por Botta Micaela Florencia</p>
+    </div>
+</footer>
+
+    <!--boton hamburguesa-->
+<script>
+  lucide.createIcons();
+</script>
+
+<style>
+    .card-destacada {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.card-destacada-info {
+  flex: 1;
+  min-width: 280px;
+}
+.badge-destacado {
+  display: inline-block;
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-destacada-info h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  color: #0f172a;
+}
+
+.card-destacada-info p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.card-destacada-botones {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.btn-destacado {
+  padding: 0.75rem 1.4rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-online {
+  background-color: #00b4d8;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.25);
+}
+
+.btn-online:hover {
+  background-color: #0096c7;
+  transform: translateY(-2px);
+}
+
+.btn-descarga {
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-descarga:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
+}
+.titulo-unidad{
+text-align: center;
+
+  }
+</style>
+<!-- ==================== ASISTENTE FLOTANTE LATERAL ==================== -->
+<div id="asistente-flotante" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2.5 no-print">
+    
+    <!-- Globo de diálogo -->
+    <div id="globo-asistente" class="max-w-[230px] bg-white border border-sky-200 shadow-lg rounded-2xl rounded-br-sm p-3.5 text-xs text-slate-700 relative transition-all duration-300">
+        <button onclick="document.getElementById('globo-asistente').classList.add('hidden')" class="absolute top-1.5 right-2 text-slate-400 hover:text-slate-600 font-bold text-sm leading-none" title="Ocultar mensaje">×</button>
+        <p class="font-bold text-sky-700 mb-0.5 text-[11px] uppercase tracking-wider">Tip de Lengua</p>
+        <p id="texto-asistente" class="leading-relaxed">¡Hola! Haz clic en mí si necesitas un consejo rápido de ortografía o lectura.</p>
+    </div>
+
+    <!-- Personaje / Objeto animado -->
+   <!-- Personaje / Objeto animado (MÁS GRANDE) -->
+    <button onclick="cambiarConsejoAsistente()" title="Haz clic para ver otro consejo" class="mascota-flotante group relative w-20 h-20 rounded-3xl bg-gradient-to-tr from-sky-600 to-indigo-600 text-white shadow-xl shadow-sky-600/30 flex items-center justify-center hover:scale-110 transition-transform cursor-pointer border-2 border-white">
+        <span class="text-4xl select-none">🦉</span>
+        <span class="absolute -top-1 -left-1 w-4 h-4 bg-emerald-400 border-2 border-white rounded-full"></span>
+    </button>
+</div>
+<!--objeto en movimiento -->
+<script>
+const consejosAsistente = [
+    "Recuerda: después de N, D y B siempre se escribe V (invierno, advertir, obvio).",
+    "¡Ojo con los homófonos! 'Hierba' es la planta y 'hierva' viene del verbo hervir.",
+    "Los plurales de palabras terminadas en Z siempre se escriben con C (pez → peces).",
+    "Los verbos terminados en -bir van con B, excepto tres: hervir, servir y vivir.",
+    "En un cuento policial, presta atención a cada detalle: ¡todo puede ser una pista!",
+    "¿Necesitas repasar? Puedes volver a la pestaña Introducción cuando quieras."
+];
+let indiceConsejo = 0;
+
+function cambiarConsejoAsistente() {
+    const globo = document.getElementById('globo-asistente');
+    const texto = document.getElementById('texto-asistente');
+    
+    globo.classList.remove('hidden');
+    indiceConsejo = (indiceConsejo + 1) % consejosAsistente.length;
+    texto.textContent = consejosAsistente[indiceConsejo];
+}
+</script>
+</body>
+</html>

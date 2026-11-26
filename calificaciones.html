@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilla de Calificación de Alumnos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a 60%, #090d16);
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 p-4 sm:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- ENCABEZADO SUPERIOR -->
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800/80">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Gestión Académica</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-fuchsia-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+                    Planilla de Calificación de Alumnos
+                </h1>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3">
+                <!-- Botón Borrar Registro Completo (aparece cuando hay datos cargados) -->
+                <button id="btn-borrar-todo" onclick="borrarTodoElRegistro()" class="hidden px-4 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 font-bold text-xs sm:text-sm transition-all flex items-center gap-2">
+                    <span>🗑️</span> Borrar Registro
+                </button>
+
+                <!-- Botón Exportar CSV -->
+                <button onclick="exportarCSV()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2">
+                    <span>📥</span> Exportar CSV
+                </button>
+            </div>
+        </header>
+
+        <!-- PANEL DE CARGA CON TODOS LOS PERÍODOS -->
+        <section class="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-5">
+            
+            <!-- Fila 1: Nombre del Estudiante + Botones -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-end">
+                <div class="lg:col-span-8 space-y-1.5">
+                    <label for="input-nombre" class="block text-[11px] font-bold uppercase tracking-wider text-cyan-400">
+                        Estudiante
+                    </label>
+                    <input id="input-nombre" type="text" placeholder="Nombre y apellido del alumno..." 
+                        class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700/80 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-fuchsia-500 focus:ring-2 focus:ring-fuchsia-500/20 transition-all">
+                </div>
+
+                <div class="lg:col-span-4 flex gap-2.5">
+                    <button type="button" onclick="limpiarFormulario()" 
+                        class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-bold text-xs whitespace-nowrap transition-all">
+                        Limpiar
+                    </button>
+
+                    <button type="button" onclick="anadirEstudiante()" 
+                        class="w-full px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-pink-500/25 whitespace-nowrap transition-all">
+                        + Añadir Estudiante
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fila 2: Casillas para los 4 Bimestres y los 2 Cuatrimestres -->
+            <div class="space-y-2">
+                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    Calificaciones por Período (1 a 10) — <span class="text-slate-500 font-normal normal-case">Completá los períodos que quieras cargar ahora:</span>
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <!-- 1° Bimestre -->
+                    <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 focus-within:border-fuchsia-500 transition-colors">
+                        <label for="nota-b1" class="block text-[11px] font-bold text-indigo-300 text-center mb-1">1° Bimestre</label>
+                        <input id="nota-b1" type="number" min="1" max="10" step="0.5" placeholder="—"
+                            class="w-full bg-transparent text-center text-base font-extrabold text-white placeholder-slate-600 focus:outline-none">
+                    </div>
+
+                    <!-- 2° Bimestre -->
+                    <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 focus-within:border-fuchsia-500 transition-colors">
+                        <label for="nota-b2" class="block text-[11px] font-bold text-indigo-300 text-center mb-1">2° Bimestre</label>
+                        <input id="nota-b2" type="number" min="1" max="10" step="0.5" placeholder="—"
+                            class="w-full bg-transparent text-center text-base font-extrabold text-white placeholder-slate-600 focus:outline-none">
+                    </div>
+
+                    <!-- 3° Bimestre -->
+                    <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 focus-within:border-fuchsia-500 transition-colors">
+                        <label for="nota-b3" class="block text-[11px] font-bold text-indigo-300 text-center mb-1">3° Bimestre</label>
+                        <input id="nota-b3" type="number" min="1" max="10" step="0.5" placeholder="—"
+                            class="w-full bg-transparent text-center text-base font-extrabold text-white placeholder-slate-600 focus:outline-none">
+                    </div>
+
+                    <!-- 4° Bimestre -->
+                    <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 focus-within:border-fuchsia-500 transition-colors">
+                        <label for="nota-b4" class="block text-[11px] font-bold text-indigo-300 text-center mb-1">4° Bimestre</label>
+                        <input id="nota-b4" type="number" min="1" max="10" step="0.5" placeholder="—"
+                            class="w-full bg-transparent text-center text-base font-extrabold text-white placeholder-slate-600 focus:outline-none">
+                    </div>
+
+                    <!-- 1° Cuatrimestre -->
+                    <div class="bg-slate-950/70 border border-cyan-900/50 rounded-xl p-2.5 focus-within:border-cyan-400 transition-colors">
+                        <label for="nota-c1" class="block text-[11px] font-bold text-cyan-300 text-center mb-1">1° Cuatrimestre</label>
+                        <input id="nota-c1" type="number" min="1" max="10" step="0.5" placeholder="—"
+                            class="w-full bg-transparent text-center text-base font-extrabold text-white placeholder-slate-600 focus:outline-none">
+                    </div>
+
+                    <!-- 2° Cuatrimestre -->
+                    <div class="bg-slate-950/70 border border-cyan-900/50 rounded-xl p-2.5 focus-within:border-cyan-400 transition-colors">
+                        <label for="nota-c2" class="block text-[11px] font-bold text-cyan-300 text-center mb-1">2° Cuatrimestre</label>
+                        <input id="nota-c2" type="number" min="1" max="10" step="0.5" placeholder="—"
+                            class="w-full bg-transparent text-center text-base font-extrabold text-white placeholder-slate-600 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referencia de aprobación -->
+            <div class="pt-3 border-t border-slate-800/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Aprobado: <strong>6 a 10</strong></span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-400"></span> Desaprobado: <strong>1 a 5</strong></span>
+                </div>
+                <span class="text-slate-500">💡 Tip: Podés editar cualquier nota haciendo clic directo en la tabla.</span>
+            </div>
+        </section>
+
+        <!-- TARJETAS DE RESUMEN (KPIs) -->
+        <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-purple-500 to-pink-500"></div>
+                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Estudiantes</p>
+                <p id="stat-total" class="text-3xl font-extrabold text-white mt-1">0</p>
+            </div>
+
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-cyan-400 to-blue-500"></div>
+                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Promedio General</p>
+                <p id="stat-promedio" class="text-3xl font-extrabold text-cyan-400 mt-1">0.0</p>
+            </div>
+
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 to-teal-500"></div>
+                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Aprobados (≥ 6)</p>
+                <p id="stat-aprobados" class="text-3xl font-extrabold text-emerald-400 mt-1">0</p>
+            </div>
+        </section>
+
+        <!-- TABLA DE CALIFICACIONES CON TODOS LOS PERÍODOS -->
+        <section class="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-950/60 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                            <th class="py-4 px-5">Estudiante</th>
+                            <th class="py-4 px-3 text-center text-indigo-300">1° Bim</th>
+                            <th class="py-4 px-3 text-center text-indigo-300">2° Bim</th>
+                            <th class="py-4 px-3 text-center text-indigo-300">3° Bim</th>
+                            <th class="py-4 px-3 text-center text-indigo-300">4° Bim</th>
+                            <th class="py-4 px-3 text-center text-cyan-300">1° Cuat</th>
+                            <th class="py-4 px-3 text-center text-cyan-300">2° Cuat</th>
+                            <th class="py-4 px-4 text-center">Promedio</th>
+                            <th class="py-4 px-4 text-center">Estado</th>
+                            <th class="py-4 px-5 text-right">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-cuerpo" class="divide-y divide-slate-800/70 text-sm">
+                        <!-- Filas generadas por JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mensaje cuando la planilla está vacía -->
+            <div id="estado-vacio" class="py-12 px-4 text-center space-y-2">
+                <p class="text-slate-300 font-bold text-base">Aún no hay alumnos cargados en la planilla</p>
+                <p class="text-slate-500 text-xs">Ingresá el nombre del alumno, completá las notas de los bimestres/cuatrimestres que tengas y presioná <strong>"+ Añadir Estudiante"</strong>.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const PERIODOS = [
+            { key: 'b1', label: '1° Bimestre' },
+            { key: 'b2', label: '2° Bimestre' },
+            { key: 'b3', label: '3° Bimestre' },
+            { key: 'b4', label: '4° Bimestre' },
+            { key: 'c1', label: '1° Cuatrimestre' },
+            { key: 'c2', label: '2° Cuatrimestre' }
+        ];
+
+        let alumnos = JSON.parse(localStorage.getItem('planilla_alumnos_v2')) || [];
+
+        function guardarDatos() {
+            localStorage.setItem('planilla_alumnos_v2', JSON.stringify(alumnos));
+        }
+
+        function anadirEstudiante() {
+            const inputNombre = document.getElementById('input-nombre');
+            const nombre = inputNombre.value.trim();
+
+            if (!nombre) {
+                alert('Por favor, ingresá el nombre del estudiante.');
+                inputNombre.focus();
+                return;
+            }
+
+            const nuevasNotas = {};
+            let alMenosUnaNota = false;
+
+            for (const p of PERIODOS) {
+                const valStr = document.getElementById(`nota-${p.key}`).value.trim();
+                if (valStr !== '') {
+                    const num = parseFloat(valStr);
+                    if (isNaN(num) || num < 1 || num > 10) {
+                        alert(`La nota de ${p.label} debe estar entre 1 y 10.`);
+                        document.getElementById(`nota-${p.key}`).focus();
+                        return;
+                    }
+                    nuevasNotas[p.key] = num;
+                    alMenosUnaNota = true;
+                }
+            }
+
+            if (!alMenosUnaNota) {
+                alert('Ingresá al menos una calificación (del 1 al 10) en algún bimestre o cuatrimestre.');
+                document.getElementById('nota-b1').focus();
+                return;
+            }
+
+            // Si el alumno ya existe, actualiza solo las notas nuevas ingresadas
+            const existente = alumnos.find(a => a.nombre.toLowerCase() === nombre.toLowerCase());
+            if (existente) {
+                Object.assign(existente.notas, nuevasNotas);
+            } else {
+                alumnos.push({
+                    id: Date.now(),
+                    nombre: nombre,
+                    notas: nuevasNotas
+                });
+            }
+
+            guardarDatos();
+            limpiarFormulario();
+            renderizarTabla();
+        }
+
+        // Permite editar una nota directamente haciendo clic en la celda de la tabla
+        function editarNotaEnTabla(idAlumno, keyPeriodo, valorActual) {
+            const periodoObj = PERIODOS.find(p => p.key === keyPeriodo);
+            const entrada = prompt(
+                `Ingresá la nota para ${periodoObj.label} (1 a 10).\nDejá vacío y aceptá para borrar esta nota:`,
+                valorActual !== undefined ? valorActual : ''
+            );
+
+            if (entrada === null) return; // Canceló
+
+            const alumno = alumnos.find(a => a.id === idAlumno);
+            if (!alumno) return;
+
+            if (entrada.trim() === '') {
+                delete alumno.notas[keyPeriodo];
+            } else {
+                const num = parseFloat(entrada);
+                if (isNaN(num) || num < 1 || num > 10) {
+                    alert('Nota inválida. Debe ser un número entre 1 y 10.');
+                    return;
+                }
+                alumno.notas[keyPeriodo] = num;
+            }
+
+            guardarDatos();
+            renderizarTabla();
+        }
+
+        function limpiarFormulario() {
+            document.getElementById('input-nombre').value = '';
+            PERIODOS.forEach(p => {
+                document.getElementById(`nota-${p.key}`).value = '';
+            });
+            document.getElementById('input-nombre').focus();
+        }
+
+        function eliminarEstudiante(id) {
+            alumnos = alumnos.filter(a => a.id !== id);
+            guardarDatos();
+            renderizarTabla();
+        }
+
+        function borrarTodoElRegistro() {
+            if (confirm('¿Estás seguro de que querés borrar todos los estudiantes y notas de la planilla?')) {
+                alumnos = [];
+                guardarDatos();
+                renderizarTabla();
+            }
+        }
+
+        function calcularPromedioAlumno(notasObj) {
+            const valores = Object.values(notasObj).filter(n => typeof n === 'number' && !isNaN(n));
+            if (valores.length === 0) return null;
+            const suma = valores.reduce((acc, val) => acc + val, 0);
+            return suma / valores.length;
+        }
+
+        function renderizarTabla() {
+            const tbody = document.getElementById('tabla-cuerpo');
+            const estadoVacio = document.getElementById('estado-vacio');
+            const btnBorrarTodo = document.getElementById('btn-borrar-todo');
+
+            if (alumnos.length > 0) {
+                btnBorrarTodo.classList.remove('hidden');
+                estadoVacio.classList.add('hidden');
+            } else {
+                btnBorrarTodo.classList.add('hidden');
+                estadoVacio.classList.remove('hidden');
+            }
+
+            tbody.innerHTML = '';
+            let sumaPromedios = 0;
+            let alumnosConNotas = 0;
+            let cantAprobados = 0;
+
+            alumnos.forEach(alumno => {
+                const prom = calcularPromedioAlumno(alumno.notas);
+                let badgeEstado = `<span class="text-xs text-slate-500">Sin notas</span>`;
+                let textoProm = '—';
+
+                if (prom !== null) {
+                    sumaPromedios += prom;
+                    alumnosConNotas++;
+                    textoProm = prom.toFixed(1);
+
+                    // Regla: Aprobado 6 para arriba, Desaprobado 1 a 5
+                    const estaAprobado = prom >= 6;
+                    if (estaAprobado) cantAprobados++;
+
+                    badgeEstado = estaAprobado
+                        ? `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">APROBADO</span>`
+                        : `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-rose-500/15 text-rose-400 border border-rose-500/30">DESAPROBADO</span>`;
+                }
+
+                let celdasNotas = '';
+                PERIODOS.forEach(p => {
+                    const n = alumno.notas[p.key];
+                    const colorNota = n === undefined
+                        ? 'text-slate-600 hover:text-slate-300'
+                        : (n >= 6 ? 'text-slate-100 font-bold' : 'text-rose-400 font-bold');
+
+                    celdasNotas += `
+                        <td onclick="editarNotaEnTabla(${alumno.id}, '${p.key}', ${n !== undefined ? n : 'undefined'})"
+                            title="Clic para cargar o editar ${p.label}"
+                            class="py-4 px-3 text-center cursor-pointer hover:bg-slate-800/80 rounded-lg transition-colors ${colorNota}">
+                            ${n !== undefined ? n : '—'}
+                        </td>
+                    `;
+                });
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-800/40 transition-colors';
+                tr.innerHTML = `
+                    <td class="py-4 px-5 font-bold text-white">${alumno.nombre}</td>
+                    ${celdasNotas}
+                    <td class="py-4 px-4 text-center font-extrabold text-cyan-400">${textoProm}</td>
+                    <td class="py-4 px-4 text-center">${badgeEstado}</td>
+                    <td class="py-4 px-5 text-right">
+                        <button onclick="eliminarEstudiante(${alumno.id})" class="px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 text-rose-400 border border-rose-500/30 text-xs font-bold transition-all">
+                            Eliminar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('stat-total').textContent = alumnos.length;
+            document.getElementById('stat-promedio').textContent = alumnosConNotas > 0 ? (sumaPromedios / alumnosConNotas).toFixed(1) : '0.0';
+            document.getElementById('stat-aprobados').textContent = cantAprobados;
+        }
+
+        function exportarCSV() {
+            if (alumnos.length === 0) {
+                alert('No hay datos para exportar.');
+                return;
+            }
+
+            const encabezados = ['Estudiante', ...PERIODOS.map(p => p.label), 'Promedio', 'Estado'];
+            const filas = alumnos.map(a => {
+                const prom = calcularPromedioAlumno(a.notas);
+                const estado = prom === null ? 'SIN NOTAS' : (prom >= 6 ? 'APROBADO' : 'DESAPROBADO');
+                const notasFila = PERIODOS.map(p => a.notas[p.key] !== undefined ? a.notas[p.key] : '');
+                return [`"${a.nombre}"`, ...notasFila, prom !== null ? prom.toFixed(1) : '', estado].join(',');
+            });
+
+            const csvContenido = [encabezados.join(','), ...filas].join('\n');
+            const blob = new Blob(['\uFEFF' + csvContenido], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Planilla_Calificaciones.csv';
+            link.click();
+        }
+
+        renderizarTabla();
+    </script>
+</body>
+</html>
